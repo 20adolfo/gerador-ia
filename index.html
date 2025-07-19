@@ -1,10 +1,43 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Gerador de Imagens por IA</title>
-</head>
-<body>
-  <h1>Funcionando! 🚀</h1>
-  <p>Seu gerador de IA está online.</p>
-</body>
+  <head>
+    <title>Gerador de Imagens por IA</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 100px;
+      }
+      input {
+        padding: 10px;
+        width: 300px;
+        font-size: 16px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Gerador de Imagens IA 🚀</h1>
+    <p>Digite o que você quer gerar:</p>
+    
+    <input type="text" id="prompt" placeholder="Ex: um dragão voando">
+    <button onclick="gerarImagem()">Gerar</button>
+
+    <script>
+      function gerarImagem() {
+        const prompt = document.getElementById('prompt').value;
+        if (prompt.trim() === '') {
+          alert('Digite algo para gerar a imagem.');
+          return;
+        }
+        // Aqui vai o link de sua ferramenta de geração
+        const url = 'https://www.bing.com/images/create?q=' + encodeURIComponent(prompt);
+        window.open(url, '_blank');
+      }
+    </script>
+  </body>
 </html>
