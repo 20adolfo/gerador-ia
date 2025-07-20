@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
+    <meta charset="UTF-8" />
     <title>Gerador de Imagens por IA</title>
     <style>
       body {
@@ -17,27 +18,36 @@
         padding: 10px 20px;
         font-size: 16px;
         margin-left: 10px;
+        cursor: pointer;
+      }
+      img {
+        margin-top: 30px;
+        max-width: 100%;
       }
     </style>
   </head>
   <body>
-    <h1>Gerador de Imagens IA 🚀</h1>
-    <p>Digite o que você quer gerar:</p>
-    
-    <input type="text" id="prompt" placeholder="Ex: um dragão voando">
+    <h1>Gerador de Imagens com IA</h1>
+    <input type="text" id="prompt" placeholder="Descreva a imagem..." />
     <button onclick="gerarImagem()">Gerar</button>
+    <div id="imagem"></div>
 
     <script>
-      function gerarImagem() {
-        const prompt = document.getElementById('prompt').value;
-        if (prompt.trim() === '') {
-          alert('Digite algo para gerar a imagem.');
-          return;
-        }
-        // Aqui vai o link de sua ferramenta de geração
-        const url = 'https://www.bing.com/images/create?q=' + encodeURIComponent(prompt);
-        window.open(url, '_blank');
+      async function gerarImagem() {
+        const prompt = document.getElementById("prompt").value;
+        const resposta = await fetch("/api/gerar", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt }),
+        });
+
+        const dados = await resposta.json();
+
+        const imagemDiv = document.getElementById("imagem");
+        imagemDiv.innerHTML = `<img src="${dados.url}" alt="Imagem gerada" />`;
       }
     </script>
   </body>
-</html>
+  </html>
